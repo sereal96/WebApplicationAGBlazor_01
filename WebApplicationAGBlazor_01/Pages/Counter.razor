@@ -1,0 +1,25 @@
+﻿@page "/counter"
+@inject EjecutaAG BackendService
+
+<h1>Generador</h1>
+
+
+<button class="btn btn-primary" @onclick="EjecutarFuncionBackend">Ejecutar Generador de Horarios</button>
+
+<p>@mensajeDesdeBackend</p>
+
+@code {    
+
+    private string mensajeDesdeBackend = string.Empty;
+
+    // Método que se ejecutará al hacer clic en el botón
+    private void EjecutarFuncionBackend()
+    {
+        // Llamar al método del backend
+        if(BackendService.MiFuncionEnBackend())
+        {
+            mensajeDesdeBackend = "Termino la generaion";
+        }
+    }
+
+}
