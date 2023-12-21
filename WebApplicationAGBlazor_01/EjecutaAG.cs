@@ -1,7 +1,13 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using iTextSharp;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+
+
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -156,6 +162,45 @@ namespace WebApplicationAGBlazor_01
             }
 
             return true;
+        }
+
+        public bool GeneraPDF()
+        {
+            string connectionString = _configuration.GetValue<string>("ConnectionStrings:myconn");
+            Obtener_datos_bd obtenerDatosBd = new Obtener_datos_bd(_configuration);
+
+            DataTable aux_Tabla_dias = obtenerDatosBd.consultaObtieneHorario();
+
+            GeneratePDFFromDataTable(aux_Tabla_dias, "../PDFdocument.pdf");
+
+            return true;
+        }
+
+        public void GeneratePDFFromDataTable(DataTable dataTable, string filePath)
+        {
+            System.IO.FileStream fs = new FileStream(filePath, FileMode.Create);
+
+            Document document = new Document(PageSize.A4, 25, 25, 30, 30);
+            PdfWriter writer = PdfWriter.GetInstance(document, fs);
+            document.Open();
+            
+            foreach (DataRow row in dataTable.Rows)
+            {
+                foreach (var item in row.ItemArray)
+                {
+                    document.Add(new Paragraph(item.ToString()));
+                }
+                document.Add(new Paragraph("")); // Agrega un salto de línea entre filas
+            }
+
+            document.AddAuthor("UNIR");
+            document.AddCreator("UNIR");
+            document.AddKeywords("PDF UNIR");
+            document.AddSubject("UNIR");
+            document.AddTitle("A.G. UNIR");
+
+            document.Close();
+            fs.Close();
         }
     }
 }

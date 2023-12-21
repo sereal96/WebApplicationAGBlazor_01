@@ -63,6 +63,14 @@ namespace WebApplicationAGBlazor_01
             return result;
         }
 
+        public DataTable consultaObtieneHorario()
+        {
+            // Ejemplo de consulta SELECT
+            string selectQuery = "SELECT d.nombre AS dia, p.nombre AS periodo, p.hora_inicio, p.hora_fin, a.número AS aula,pr.nombre AS profesor, m.nombre AS materia, c.nombre AS curso FROM colegio.horario_prueba h JOIN colegio.dia d ON h.id_dia = d.id_dia JOIN colegio.periodo p ON h.id_periodo = p.id_periodo JOIN colegio.aula a ON h.id_aula = a.id_aula JOIN colegio.profesor pr ON h.id_profesor = pr.id_profesor JOIN colegio.materia m ON h.id_materia = m.id_materia JOIN colegio.curso c ON h.id_curso = c.id_curso WHERE d.nombre IN('Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes')";
+            DataTable result = ExecuteQuery(selectQuery);
+
+            return result;
+        }
 
         public void insert_bd_horario(string gestion, string id_dia, string id_periodo, string id_materia, string id_profesor, string id_aula, string id_curso)//IEnumerable<object> individuos)
         {
@@ -71,43 +79,6 @@ namespace WebApplicationAGBlazor_01
 
             string insertQuery = $"INSERT INTO {tabla} (gestion, id_dia, id_periodo, id_materia, id_profesor, id_aula, id_curso) VALUES ( {gestion}, {id_dia}, {id_periodo}, {id_materia}, {id_profesor}, {id_aula}, {id_curso})";
             ExecuteNonQuery(insertQuery);
-
-            //foreach (var individuo in individuos)
-            //{
-            //    // Crear la instrucción INSERT
-            //    string insertQuery = $"INSERT INTO {tabla} (Campo1, Campo2, ...) VALUES (@param1, @param2, ...)";
-            //
-            //    
-            //}
-
-
-            ////try
-            ////{
-            ////    conexion.Open();
-
-            ////    string consultaInsert = "INSERT INTO horarios (gestion, id_dia, id_periodo, id_materia) " +
-            ////                            "VALUES (@gestion, @id_dia, @id_periodo, @id_materia)";
-
-            ////    MySqlCommand comando = new MySqlCommand(consultaInsert, conexion);
-            ////    comando.Parameters.AddWithValue("@gestion", "2023"); // Valor para 'gestion'
-            ////    comando.Parameters.AddWithValue("@id_dia", 1); // Valor para 'id_dia'
-            ////    comando.Parameters.AddWithValue("@id_periodo", 2); // Valor para 'id_periodo'
-            ////    comando.Parameters.AddWithValue("@id_materia", 3); // Valor para 'id_materia'
-
-            ////    int filasAfectadas = comando.ExecuteNonQuery();
-
-            ////    Console.WriteLine($"Se insertaron {filasAfectadas} fila(s) correctamente en la tabla 'horarios'.");
-            ////}
-            ////catch (Exception ex)
-            ////{
-            ////    Console.WriteLine("Error: " + ex.Message);
-            ////}
-            ////finally
-            ////{
-            ////    conexion.Close();
-            ////}
-
-
         }
 
         // Método para obtener el valor de un campo desde el objeto individuo

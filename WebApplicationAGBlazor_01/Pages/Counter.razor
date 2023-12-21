@@ -6,9 +6,12 @@
 
 <button class="btn btn-primary" @onclick="EjecutarFuncionBackend">Ejecutar Generador de Horarios</button>
 
+
+<button class="btn btn-primary" @onclick="EjecutarFuncionPDF">Generadar pdf</button>
+
 <p>@mensajeDesdeBackend</p>
 
-@code {    
+@code {
 
     private string mensajeDesdeBackend = string.Empty;
 
@@ -16,10 +19,16 @@
     private void EjecutarFuncionBackend()
     {
         // Llamar al método del backend
-        if(BackendService.MiFuncionEnBackend())
+        if (BackendService.MiFuncionEnBackend())
         {
             mensajeDesdeBackend = "Termino la generaion";
         }
+    }
+
+    private void EjecutarFuncionPDF()
+    {
+        BackendService.GeneraPDF();
+
     }
 
 }
