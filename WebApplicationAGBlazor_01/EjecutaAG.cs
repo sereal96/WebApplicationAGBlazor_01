@@ -21,10 +21,7 @@ namespace WebApplicationAGBlazor_01
         {
             string connectionString = _configuration.GetValue<string>("ConnectionStrings:myconn");
 
-            // Lógica que deseas ejecutar en el backend
-            // Puede ser cualquier cosa que necesites realizar
-
-
+    
             Poblacion poblacion = new Poblacion();
             int poblacionTamano = 100;// 100;
 
