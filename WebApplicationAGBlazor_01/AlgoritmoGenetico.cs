@@ -28,20 +28,36 @@ namespace WebApplicationAGBlazor_01
 
         public Individuo SelectParent_Random(Poblacion population_)
         {
+            // Obtener la fecha y hora actuales
+            DateTime tiempoActual = DateTime.Now;
+            // Crear una semilla basada en el tiempo actual
+            int semilla = tiempoActual.Year * 10000 + tiempoActual.DayOfYear * 100 + tiempoActual.Month * 10 +
+                          tiempoActual.Hour * 10000 + tiempoActual.Second;
+            Random rnd = new Random(semilla);
+
+            rnd.Next(0, population_.Size() + 1);
+
             List<Individuo> individuals = population_.GetPobladores();
-            int hasar = new Random().Next(0, population_.Size() + 1);
+            int hasar = rnd.Next(0, population_.Size() + 1);
             while (hasar >= individuals.Count)
             {
-                hasar = new Random().Next(0, population_.Size() + 1);
+                hasar = rnd.Next(0, population_.Size() + 1);
             }
             return individuals[hasar];
         }
 
         public Individuo SelectParent_RouletteWheel(Poblacion population_)
         {
+            // Obtener la fecha y hora actuales
+            DateTime tiempoActual = DateTime.Now;
+            // Crear una semilla basada en el tiempo actual
+            int semilla = tiempoActual.Year * 10000 + tiempoActual.DayOfYear * 100 + tiempoActual.Month * 10 +
+                          tiempoActual.Hour * 10000 + tiempoActual.Second;
+            Random rnd = new Random(semilla);
+
             List<Individuo> individuals = population_.GetPobladores();
             double populationFitness = population_.GetAptitudPoblacion();
-            double rouletteWheelPosition = new Random().NextDouble() * populationFitness;
+            double rouletteWheelPosition = rnd.NextDouble() * populationFitness;
 
             double spinWheel = 0;
             foreach (Individuo individual in individuals)
@@ -57,6 +73,14 @@ namespace WebApplicationAGBlazor_01
 
         public Individuo SelectParent_TournamentSelection(Poblacion population_)
         {
+            // Obtener la fecha y hora actuales
+            DateTime tiempoActual = DateTime.Now;
+            // Crear una semilla basada en el tiempo actual
+            int semilla = tiempoActual.Year * 10000 + tiempoActual.DayOfYear * 100 + tiempoActual.Month * 10 +
+                          tiempoActual.Hour * 10000 + tiempoActual.Second;
+            Random rnd = new Random(semilla);
+
+
             Poblacion tournament = new Poblacion(tamanoDeTorneo);
 
             Poblacion poblacionAux = new Poblacion();
@@ -75,7 +99,7 @@ namespace WebApplicationAGBlazor_01
                 {
                     if (a == b)
                     {
-                        a = new Random().Next(1, poblacionAux.Size());
+                        a = rnd.Next(1, poblacionAux.Size());
                     }
                 }
                 else
@@ -99,7 +123,17 @@ namespace WebApplicationAGBlazor_01
 
         public Poblacion CrossoverPopulation_1(Poblacion population_, int selecion_padre)
         {
-            Random rnd = new Random();
+            //Random rnd = new Random();
+
+            // Obtener la fecha y hora actuales
+            DateTime tiempoActual = DateTime.Now;
+            // Crear una semilla basada en el tiempo actual
+            int semilla = tiempoActual.Year * 10000 + tiempoActual.DayOfYear * 100 + tiempoActual.Month * 10 +
+                          tiempoActual.Hour * 10000 + tiempoActual.Second;
+
+            Random rnd = new Random(semilla);
+
+
             Poblacion newPopulation = new Poblacion(population_.Size());
 
             for (int populationIndex = 0; populationIndex < population_.Size(); populationIndex++)
@@ -138,10 +172,11 @@ namespace WebApplicationAGBlazor_01
                     //    tiempoInfo.tm_mday * 86400 + (tiempoInfo.tm_mon + 1) * 2592000 + (tiempoInfo.tm_year + 1900) * 31104000;
                     //srand(semilla);
 
-                    //Genera una semillar basada en fecha,hora,minuto y segundo
-                    DateTime tiempoActual = DateTime.Now;
-                    int semilla = tiempoActual.Second + tiempoActual.Minute * 60 + tiempoActual.Hour * 3600 +
-                        tiempoActual.Day * 86400 + (tiempoActual.Month + 1) * 2592000 + tiempoActual.Year * 31104000;
+                    // Obtener la fecha y hora actuales
+                    tiempoActual = DateTime.Now;
+                    // Crear una semilla basada en el tiempo actual
+                    semilla = tiempoActual.Year * 10000 + tiempoActual.DayOfYear * 100 + tiempoActual.Month * 10 +
+                                  tiempoActual.Hour * 10000 + tiempoActual.Second;
 
                     Random rand = new Random(semilla);
 
@@ -182,7 +217,7 @@ namespace WebApplicationAGBlazor_01
                                 offspring.SetGenomaS(geneIndex + 4, parent2.getGenomaS(geneIndex + 4));
                             }
                             geneIndex = geneIndex + 4;
-                            offspring.CalculaAptitudIndividuo();
+                            //offspring.CalculaAptitudIndividuo();
                         }
                         else
                         {
@@ -212,9 +247,11 @@ namespace WebApplicationAGBlazor_01
 
             for (int populationIndex = 0; populationIndex < population_.Size(); populationIndex++)
             {
+                // Obtener la fecha y hora actuales
                 DateTime tiempoActual = DateTime.Now;
-                int semilla = tiempoActual.Second + tiempoActual.Minute * 60 + tiempoActual.Hour * 3600 +
-                    tiempoActual.Day * 86400 + (tiempoActual.Month + 1) * 2592000 + tiempoActual.Year * 31104000;
+                // Crear una semilla basada en el tiempo actual
+                int semilla = tiempoActual.Year * 10000 + tiempoActual.DayOfYear * 100 + tiempoActual.Month * 10 +
+                              tiempoActual.Hour * 10000 + tiempoActual.Second;
 
                 Random rand = new Random(semilla);
 

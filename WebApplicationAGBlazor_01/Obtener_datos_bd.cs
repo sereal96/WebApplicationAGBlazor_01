@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using MySql.Data.MySqlClient;
@@ -66,19 +67,19 @@ namespace WebApplicationAGBlazor_01
         public DataTable consultaObtieneHorario()
         {
             // Ejemplo de consulta SELECT
-            string selectQuery = "SELECT d.nombre AS dia, p.nombre AS periodo, p.hora_inicio, p.hora_fin, a.número AS aula,pr.nombre AS profesor, m.nombre AS materia, c.nombre AS curso FROM colegio.horario_prueba h JOIN colegio.dia d ON h.id_dia = d.id_dia JOIN colegio.periodo p ON h.id_periodo = p.id_periodo JOIN colegio.aula a ON h.id_aula = a.id_aula JOIN colegio.profesor pr ON h.id_profesor = pr.id_profesor JOIN colegio.materia m ON h.id_materia = m.id_materia JOIN colegio.curso c ON h.id_curso = c.id_curso WHERE d.nombre IN('Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes')";
+            string selectQuery = "SELECT d.nombre AS dia, p.nombre AS periodo, p.hora_inicio, p.hora_fin, a.número AS aula,pr.nombre AS profesor, m.nombre AS materia, c.nombre AS curso FROM colegio.horario_prueba h JOIN colegio.dia d ON h.id_dia = d.id_dia JOIN colegio.periodo p ON h.id_periodo = p.id_periodo JOIN colegio.aula a ON h.id_aula = a.id_aula JOIN colegio.profesor pr ON h.id_profesor = pr.id_profesor JOIN colegio.materia m ON h.id_materia = m.id_materia JOIN colegio.curso c ON h.id_curso = c.id_curso WHERE d.nombre IN('Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes') order by curso, periodo, dia";
             DataTable result = ExecuteQuery(selectQuery);
 
             return result;
         }
 
-        public void insert_bd_horario(string gestion, string id_dia, string id_periodo, string id_materia, string id_profesor, string id_aula, string id_curso)//IEnumerable<object> individuos)
-        {
-            // Supongamos que "NombreDeTuTabla" es el nombre de tu tabla en la base de datos
+        public string insert_bd_horario(string gestion, string id_dia, string id_periodo, string id_materia, string id_profesor, string id_aula, string id_curso)//IEnumerable<object> individuos)
+        {            
             string tabla = "horario_prueba";
 
             string insertQuery = $"INSERT INTO {tabla} (gestion, id_dia, id_periodo, id_materia, id_profesor, id_aula, id_curso) VALUES ( {gestion}, {id_dia}, {id_periodo}, {id_materia}, {id_profesor}, {id_aula}, {id_curso})";
             ExecuteNonQuery(insertQuery);
+            return insertQuery;
         }
 
         // Método para obtener el valor de un campo desde el objeto individuo

@@ -62,7 +62,15 @@ namespace WebApplicationAGBlazor_01
         public void GeneradorDePoblacion(int cantidad, int numero_de_dias_, int numero_de_periodos_, int numero_de_cursos_, int numero_de_profesores_,
             int numero_de_materias_, int numero_de_aulas_)
         {
-            Random rnd = new Random();
+            // Obtener la fecha y hora actuales
+            DateTime tiempoActual = DateTime.Now;
+            // Crear una semilla basada en el tiempo actual
+            int semilla = tiempoActual.Year * 10000 + tiempoActual.DayOfYear * 100 + tiempoActual.Month * 10 +
+                          tiempoActual.Hour * 10000 + tiempoActual.Second;
+
+            Random rnd = new Random(semilla);
+
+            //Random rnd = new Random();
             for (int i = 0; i < cantidad; i++)
             {
                 Individuo i1 = new Individuo();
@@ -90,7 +98,13 @@ namespace WebApplicationAGBlazor_01
 
         public void Shuffle()
         {
-            Random rnd = new Random();
+            // Obtener la fecha y hora actuales
+            DateTime tiempoActual = DateTime.Now;
+            // Crear una semilla basada en el tiempo actual
+            int semilla = tiempoActual.Year * 10000 + tiempoActual.DayOfYear * 100 + tiempoActual.Month * 10 +
+                          tiempoActual.Hour * 10000 + tiempoActual.Second;
+
+            Random rnd = new Random(semilla);
             for (int i = pobladores.Count - 1; i > 0; i--)
             {
                 int index = rnd.Next(i + 1);
@@ -102,7 +116,13 @@ namespace WebApplicationAGBlazor_01
 
         public Poblacion Shuffle2()
         {
-            Random rnd = new Random();
+            // Obtener la fecha y hora actuales
+            DateTime tiempoActual = DateTime.Now;
+            // Crear una semilla basada en el tiempo actual
+            int semilla = tiempoActual.Year * 10000 + tiempoActual.DayOfYear * 100 + tiempoActual.Month * 10 +
+                          tiempoActual.Hour * 10000 + tiempoActual.Second;
+
+            Random rnd = new Random(semilla);
             for (int i = pobladores.Count - 1; i > 0; i--)
             {
                 int index = rnd.Next(i + 1);

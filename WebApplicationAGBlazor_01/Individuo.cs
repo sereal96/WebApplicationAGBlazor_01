@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace WebApplicationAGBlazor_01
@@ -256,7 +257,7 @@ namespace WebApplicationAGBlazor_01
             DateTime tiempoActual = DateTime.Now;
             int semilla = tiempoActual.Second + tiempoActual.Minute * 60 + tiempoActual.Hour * 3600 +
                 tiempoActual.Day * 86400 + (tiempoActual.Month + 1) * 2592000 + tiempoActual.Year * 31104000;
-
+            Thread.Sleep(100);
             Random rand = new Random(semilla);
 
             int cantidad_cromosomas = numero_de_dias * numero_de_periodos;
@@ -274,8 +275,18 @@ namespace WebApplicationAGBlazor_01
             List<int> dia_x_periodo = new List<int>();
             int resCorrect = 0;
 
-            while (resCorrect < 5)//!saludAula & !saludProfesor & !saludAulaProfesor & !saludDiaPeriodoAula & !saludProfesorPeriodo)//!saludAula && 
+            while (resCorrect < 3)//!saludAula & !saludProfesor & !saludAulaProfesor & !saludDiaPeriodoAula & !saludProfesorPeriodo)//!saludAula && 
             {
+                // Obtener la fecha y hora actuales
+                tiempoActual = DateTime.Now;
+                // Crear una semilla basada en el tiempo actual
+                semilla = tiempoActual.Year * 10000 + tiempoActual.DayOfYear * 100 + tiempoActual.Month * 10 +
+                              tiempoActual.Hour * 10000 + tiempoActual.Second;
+                
+
+                rand = new Random(semilla);
+
+
                 posv = 0;
                 genomaS.Clear();
                 posicion_del_curso_en_vector.Clear();
@@ -407,14 +418,14 @@ namespace WebApplicationAGBlazor_01
                 {
                     resCorrect++;
                 }
-                if (saludProfesorPeriodo)
-                {
-                    resCorrect++;
-                }
-                if (saludDiaPeriodoAula)
-                {
-                    resCorrect++;
-                }
+                //////if (saludProfesorPeriodo)//hoy
+                //////{
+                //////    resCorrect++;
+                //////}
+                //////if (saludDiaPeriodoAula)
+                //////{
+                //////    resCorrect++;
+                //////}
 
                 ////if (saludAula)// == 1)
                 ////{
@@ -590,9 +601,16 @@ namespace WebApplicationAGBlazor_01
 
         public void SetTodosLosProfesoryPeriodo(int numero_de_profesores_, int numero_de_dias_, int numero_de_periodos_)
         {
+            // Obtener la fecha y hora actuales
+            DateTime tiempoActual = DateTime.Now;
+            // Crear una semilla basada en el tiempo actual
+            int semilla = tiempoActual.Year * 10000 + tiempoActual.DayOfYear * 100 + tiempoActual.Month * 10 +
+                          tiempoActual.Hour * 10000 + tiempoActual.Second;
+            Random rnd = new Random(semilla);
+
             int numero_periodos = numero_de_dias_ * numero_de_periodos_;
 
-            Random rnd = new Random();
+            //Random rnd = new Random();
             for (int i = 0; i < numero_de_profesores_; i++)
             {
                 int aux = rnd.Next(1, numero_de_periodos_ + 1);
