@@ -29,7 +29,7 @@ namespace WebApplicationAGBlazor_01
 
     
             Poblacion poblacion = new Poblacion();
-            int poblacionTamano = 1000;// 100;
+            int poblacionTamano = 1000;// 00;// 100;
 
             Obtener_datos_bd obtenerDatosBd = new Obtener_datos_bd(_configuration);
             int numero_de_dias = obtenerDatosBd.consulta_bd(1);
@@ -49,19 +49,8 @@ namespace WebApplicationAGBlazor_01
 
 
             Herramientas h1 = new Herramientas();
-            //numero_de_cursos = h1.obtenerCantidadDeElementosDeDataTable(aux_Tabla_cursos);  //<---ESTO SOLO ES PARA TENER UN NUMERO MANEJABLE DE CURTOS Y TEST --QUITAR ANTES DE ENTREGAR FINAL!!!!! 
-            //numero_de_materias = h1.obtenerCantidadDeElementosDeDataTable2(aux_Tabla_materias);//<---ESTO SOLO ES PARA TENER UN NUMERO MANEJABLE DE CURTOS Y TEST --QUITAR ANTES DE ENTREGAR FINAL!!!!! 
-
             //////////////////////////////////////////////////Tablas aqui/  ///////////////////////////////////////////////////////////////////
 
-            ////// Simulación de una colección de objetos con los datos de horarios
-            ////List<object> individuos = new List<object>
-            ////    {
-            ////        new { id_horario = 1, gestion = 2023, id_dia = 1, id_periodo = 1, id_materia = 1, id_profesor = 1, id_aula = 1, id_curso = 1 },
-            ////        new { id_horario = 2, gestion = 2023, id_dia = 1, id_periodo = 1, id_materia = 2, id_profesor = 2, id_aula = 2, id_curso = 2 },
-            ////        new { id_horario = 3, gestion = 2023, id_dia = 1, id_periodo = 1, id_materia = 3, id_profesor = 3, id_aula = 3, id_curso = 3 },
-            ////        // Agrega más objetos según tus necesidades
-            ////    };
 
             //obtenerDatosBd.insert_bd_horario(individuos);
 
@@ -72,12 +61,12 @@ namespace WebApplicationAGBlazor_01
             double gradoDeMuatacion = 0.01;// mutationRate = 0.01;
             double crossoverRate = 0.9;
             int elitismoCont = 2;// elitismCount = 2;
-            int tamanoDeTorneo = 100;// tournamentSize = 5;
+            int tamanoDeTorneo = 10;// tournamentSize = 5;
             AlgoritmoGenetico ag = new AlgoritmoGenetico(poblacionTamano, gradoDeMuatacion, crossoverRate, elitismoCont, tamanoDeTorneo);
 
             // Keep track of current generation
             int generation = 1;
-            int cantidad_de_generaciones = 2000;
+            int cantidad_de_generaciones = 1000;
 
             double aptitudAcutal = 0.0;
             double aptitudAnterior = 0.0;
@@ -88,10 +77,7 @@ namespace WebApplicationAGBlazor_01
             {
                 // Apply crossover
                 poblacion = ag.CrossoverPopulation_1(poblacion, 3);
-                //std::cout << "generacion " << std::to_string(generation) << " aptitud poblacion = " << std::to_string(poblacion.getAptitudPoblacion()) << "\n";
-
-                // TODO: Apply mutation                    
-
+                
                 // TODO: Evaluate population
                 poblacion.CalculaAptitudPoblacion();
 
@@ -141,8 +127,7 @@ namespace WebApplicationAGBlazor_01
 
                 if (valor.titulo.Equals("Curso"))
                 {
-                    text_id_curso = aux_Tabla_cursos.Rows[pos_en_lista].ItemArray[0].ToString();
-                    //textoTest.Add(text_id_curso);
+                    text_id_curso = aux_Tabla_cursos.Rows[pos_en_lista].ItemArray[0].ToString();                    
                 }
                 else
                 {
@@ -187,12 +172,7 @@ namespace WebApplicationAGBlazor_01
                         textoTest.Clear();
                     }
                 }
-
-
             }
-
-
-            //obtenerDatosBd.insert_bd_horarioLista(listqry);
             return true;
         }
 
@@ -282,8 +262,7 @@ namespace WebApplicationAGBlazor_01
                     bool p1LunesNoVacia = dataTable.AsEnumerable()
                         .Any(row => row.Field<string>("curso") == curso.ToString() && row.Field<string>("periodo") == perido && row.Field<string>("dia") == "Lunes");
                     if (p1LunesNoVacia)
-                    {
-                        Console.WriteLine("La variable p1Lunes no está vacía. Contiene al menos un elemento.");
+                    {                        
                         EnumerableRowCollection<DataRow> p1Lunes = dataTable.AsEnumerable()
                             .Where(row => row.Field<string>("curso") == curso.ToString() && row.Field<string>("periodo") == perido && row.Field<string>("dia") == "Lunes");
                         foreach (var fila in p1Lunes)

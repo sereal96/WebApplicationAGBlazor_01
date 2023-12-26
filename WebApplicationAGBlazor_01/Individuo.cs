@@ -275,7 +275,7 @@ namespace WebApplicationAGBlazor_01
             List<int> dia_x_periodo = new List<int>();
             int resCorrect = 0;
 
-            while (resCorrect < 3)//!saludAula & !saludProfesor & !saludAulaProfesor & !saludDiaPeriodoAula & !saludProfesorPeriodo)//!saludAula && 
+            while (resCorrect < 3 & !saludDiaPeriodoAula)//!saludAula & !saludProfesor & !saludAulaProfesor & !saludDiaPeriodoAula & !saludProfesorPeriodo)//!saludAula && 
             {
                 // Obtener la fecha y hora actuales
                 tiempoActual = DateTime.Now;
@@ -878,7 +878,8 @@ namespace WebApplicationAGBlazor_01
             {
                 Console.WriteLine("pos_Curso = " + pos_Curso);
 
-                for (int i = 0; i < posicion_del_curso_en_vector[1] - 1; i = i + 5)
+                //for (int i = 0; i < posicion_del_curso_en_vector[1] - 1; i = i + 5)
+                for (int i = 0; i < posicion_del_curso_en_vector[0] - 1; i = i + 5)
                 {
                     categoria c0 = genomaS[pos_Curso + i + 1]; //Aula
                     categoria c1 = genomaS[pos_Curso + i + 2]; //Dia
@@ -960,7 +961,8 @@ namespace WebApplicationAGBlazor_01
             {
                 Console.WriteLine("pos_Curso = " + pos_Curso);
 
-                for (int i = 0; i < posicion_del_curso_en_vector[1] - 1; i = i + 5)
+                //for (int i = 0; i < posicion_del_curso_en_vector[1] - 1; i = i + 5)
+                for (int i = 0; i < posicion_del_curso_en_vector[0] - 1; i = i + 5)
                 {
                     categoria c0 = genomaS[pos_Curso + i + 1]; //Aula
                     categoria c1 = genomaS[pos_Curso + i + 2]; //Dia
@@ -1039,23 +1041,57 @@ namespace WebApplicationAGBlazor_01
             int cursoAux = 0;
             foreach (int posCurso in posicion_del_curso_en_vector)
             {
-                for (int i = 0; i < posicion_del_curso_en_vector[1] - 1; i = i + 5)
+                int cantCurso = posicion_del_curso_en_vector.Count();
+                
+                if (cantCurso == 1)
                 {
-                    categoria c0 = genomaS[posCurso + i + 1]; // Aula
-                    categoria c1 = genomaS[posCurso + i + 2]; // Dia
-                    categoria c2 = genomaS[posCurso + i + 3]; // Hora
-                    categoria c3 = genomaS[posCurso + i + 4]; // Materia
-                    categoria c4 = genomaS[posCurso + i + 5]; // Profesor
+                    foreach (int posAula in posicion_del_aula_en_vector)
+                    {
+                        categoria c0 = genomaS[posAula + 0 + 1-1]; // Aula
+                        categoria c1 = genomaS[posAula + 0 + 2-1]; // Dia
+                        categoria c2 = genomaS[posAula + 0 + 3-1]; // Hora
+                        categoria c3 = genomaS[posAula + 0 + 4-1]; // Materia
+                        categoria c4 = genomaS[posAula + 0 + 5-1]; // Profesor
 
 
-                    string aux01 = "____________" + c0.valor + " " + c1.valor + " " + c2.valor + " " + c3.valor + " " + c4.valor;
-                    categoria auxC = new categoria();
-                    auxC.titulo = aux01;
-                    cursos[cursoAux][int.Parse(c2.valor) - 1][int.Parse(c1.valor) - 1] = auxC;
-
-                    //cursos[cursoAux][int.Parse(c2.valor) - 1][int.Parse(c1.valor) - 1].titulo = "____________" + c0.valor + " " + c1.valor + " " + c2.valor + " " + c3.valor + " " + c4.valor;
+                        string aux01 = "____________" + c0.valor + " " + c1.valor + " " + c2.valor + " " + c3.valor + " " + c4.valor;
+                        categoria auxC = new categoria();
+                        auxC.titulo = aux01;
+                        cursos[cursoAux][int.Parse(c2.valor) - 1][int.Parse(c1.valor) - 1] = auxC;
+                    }
+                    cursoAux++;
+                }else
+                {
+                    for (int i = 0; i < posicion_del_curso_en_vector[1] - 1; i = i + 5)
+                    {
+                        categoria c0 = genomaS[posCurso + i + 1]; // Aula
+                        categoria c1 = genomaS[posCurso + i + 2]; // Dia
+                        categoria c2 = genomaS[posCurso + i + 3]; // Hora
+                        categoria c3 = genomaS[posCurso + i + 4]; // Materia
+                        categoria c4 = genomaS[posCurso + i + 5]; // Profesor
+                        string aux01 = "____________" + c0.valor + " " + c1.valor + " " + c2.valor + " " + c3.valor + " " + c4.valor;
+                        categoria auxC = new categoria();
+                        auxC.titulo = aux01;
+                        cursos[cursoAux][int.Parse(c2.valor) - 1][int.Parse(c1.valor) - 1] = auxC;
+                        //cursos[cursoAux][int.Parse(c2.valor) - 1][int.Parse(c1.valor) - 1].titulo = "____________" + c0.valor + " " + c1.valor + " " + c2.valor + " " + c3.valor + " " + c4.valor;
+                    }
+                    cursoAux++;
                 }
-                cursoAux++;
+
+                ////////for (int i = 0; i < posicion_del_curso_en_vector[1] - 1; i = i + 5)                
+                ////////{
+                ////////    categoria c0 = genomaS[posCurso + i + 1]; // Aula
+                ////////    categoria c1 = genomaS[posCurso + i + 2]; // Dia
+                ////////    categoria c2 = genomaS[posCurso + i + 3]; // Hora
+                ////////    categoria c3 = genomaS[posCurso + i + 4]; // Materia
+                ////////    categoria c4 = genomaS[posCurso + i + 5]; // Profesor
+                ////////    string aux01 = "____________" + c0.valor + " " + c1.valor + " " + c2.valor + " " + c3.valor + " " + c4.valor;
+                ////////    categoria auxC = new categoria();
+                ////////    auxC.titulo = aux01;
+                ////////    cursos[cursoAux][int.Parse(c2.valor) - 1][int.Parse(c1.valor) - 1] = auxC;
+                ////////    //cursos[cursoAux][int.Parse(c2.valor) - 1][int.Parse(c1.valor) - 1].titulo = "____________" + c0.valor + " " + c1.valor + " " + c2.valor + " " + c3.valor + " " + c4.valor;
+                ////////}
+                ////////cursoAux++;
             }
 
             int contErrores = 0;

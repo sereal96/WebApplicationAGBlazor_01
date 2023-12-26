@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace WebApplicationAGBlazor_01
@@ -73,6 +74,12 @@ namespace WebApplicationAGBlazor_01
             //Random rnd = new Random();
             for (int i = 0; i < cantidad; i++)
             {
+                semilla = tiempoActual.Year * 10000 + tiempoActual.DayOfYear * 100 + tiempoActual.Month * 10 +
+                          tiempoActual.Hour * 10000 + tiempoActual.Second;
+                rnd = new Random(semilla);
+                Thread.Sleep(100);
+
+
                 Individuo i1 = new Individuo();
                 i1.CrearGenomaS(numero_de_dias_, numero_de_periodos_, numero_de_cursos_, numero_de_profesores_, numero_de_materias_, numero_de_aulas_);
                 //Console.WriteLine("individuo " + i.ToString() + " añadido.");
@@ -107,6 +114,11 @@ namespace WebApplicationAGBlazor_01
             Random rnd = new Random(semilla);
             for (int i = pobladores.Count - 1; i > 0; i--)
             {
+                semilla = tiempoActual.Year * 10000 + tiempoActual.DayOfYear * 100 + tiempoActual.Month * 10 +
+                          tiempoActual.Hour * 10000 + tiempoActual.Second;
+                rnd = new Random(semilla);
+
+
                 int index = rnd.Next(i + 1);
                 Individuo a = pobladores[index];
                 pobladores[index] = pobladores[i];
